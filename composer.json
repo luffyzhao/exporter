@@ -1,0 +1,17 @@
+{
+    "name": "luffyzhao/export-excel",
+    "require": {
+        "php": ">=7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "LExport\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "luffyzhao",
+            "email": "luffyzhao@vip.126.com"
+        }
+    ]
+}
