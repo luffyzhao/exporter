@@ -1,5 +1,5 @@
 {
-    "name": "luffyzhao/export-excel",
+    "name": "luffyzhao/exporter",
     "require": {
         "php": ">=7.0"
     },
