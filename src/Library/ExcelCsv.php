@@ -3,8 +3,9 @@
 namespace LExport\Library;
 
 use Exception;
+use LExport\Contracts\ExcelLibrary;
 
-class ExcelCsv
+class ExcelCsv implements ExcelLibrary
 {
     /**
      * output 句柄
@@ -16,27 +17,15 @@ class ExcelCsv
      * 初始化
      * @author: luffyzhao@vip.126.com
      * @datetime: 2019/3/11 13:41
+     * @param string $file
      * @throws Exception
      */
-    public function __construct()
+    public function __construct(string $file = 'php://output')
     {
+        $this->_fd = fopen($file, 'w+');
         if ($this->_fd === false) {
-            $this->_fd = fopen('php://output', 'w');
-            if ($this->_fd === false) {
-                throw new Exception('can‘t open php://output');
-            }
+            throw new Exception('can‘t open ' . $file);
         }
-    }
-
-    /**
-     * 添加表头
-     * @param array $data
-     * @author: luffyzhao@vip.126.com
-     * @datetime: 2019/3/11 14:12
-     */
-    public function setHeader(array $data)
-    {
-        fputcsv($this->_fd, $data, ',', '"');
     }
 
     /**
@@ -45,9 +34,9 @@ class ExcelCsv
      * @author: luffyzhao@vip.126.com
      * @datetime: 2019/3/11 14:17
      */
-    public function setBody(array $data)
+    public function setRow(array $data)
     {
-        fputcsv($this->_fd, $data, ',', '"');
+        $this->writeCsvData($data);
     }
 
     /**
@@ -56,10 +45,22 @@ class ExcelCsv
      * @author: luffyzhao@vip.126.com
      * @datetime: 2019/3/12 15:55
      */
-    public function setBodies(array $data){
-        foreach ($data as $value){
-            $this->setBody($value);
+    public function setRows(array $data)
+    {
+        foreach ($data as $value) {
+            $this->setRow($value);
         }
+    }
+
+    /**
+     * 数据写入csv文件
+     * @param array $data
+     * @author: luffyzhao@vip.126.com
+     * @datetime: 2019/3/14 14:26
+     */
+    private function writeCsvData(array $data)
+    {
+        fputcsv($this->_fd, $data, ',', '"');
     }
 
     /**

@@ -12,7 +12,5 @@ interface FromQuery
 {
     public function query(int $offset, int $limit): array;
 
-    public function totalCollection(): int;
-
     public function limit(): int;
 }

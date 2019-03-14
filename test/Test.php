@@ -8,10 +8,11 @@
 use LExport\Contracts\FromQuery;
 use LExport\Contracts\WithHeadings;
 use LExport\Contracts\WithMapping;
+use LExport\Contracts\WithRowsTotal;
 
 require '../vendor/autoload.php';
 
-class Test implements FromQuery, WithHeadings, WithMapping
+class Test implements FromQuery, WithHeadings, WithMapping, WithRowsTotal
 {
 
     public function query(int $offset, int $limit): array
